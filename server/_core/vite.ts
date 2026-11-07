@@ -7,7 +7,10 @@ export async function setupVite(app: Express, server: Server) {
   // Dev-only imports — kept dynamic so the production bundle does not
   // resolve the 'vite' package (a devDependency absent from --prod installs).
   const { createServer: createViteServer } = await import("vite");
-  const { default: viteConfig } = await import("../../vite.config");
+  // Variable path keeps esbuild from bundling vite.config (and its dev-only
+  // plugin imports) into the production server bundle.
+  const configPath = "../../vite.config";
+  const { default: viteConfig } = await import(configPath);
   const serverOptions = {
     middlewareMode: true,
     hmr: { server },
