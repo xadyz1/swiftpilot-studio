@@ -41,7 +41,15 @@ export async function login(req: Request, res: Response): Promise<void> {
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) throw new StudioError('Enter a valid email address.', 400);
   const email = parsed.data.email.toLowerCase();
-  const user = await createUser({ email, name: parsed.data.name, role: MASTER_EMAILS.has(email) ? 'admin' : 'user' });
+  let user = await getUserByEmail(email);
+  if (!user) {
+    // Closed registration: only master emails self-provision; everyone else
+    // must be added on the Users dashboard first.
+    if (!MASTER_EMAILS.has(email)) {
+      throw new StudioError('No account exists for this email. Ask the master to add you.', 403);
+    }
+    user = await createUser({ email, name: parsed.data.name, role: 'admin' });
+  }
   issueCookie(res, user);
   res.json({ authenticated: true, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
 }
