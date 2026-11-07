@@ -8,6 +8,7 @@ export default function UsersAdmin({ currentUserId }: { currentUserId?: number }
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [role, setRole] = useState<'user' | 'admin'>('user');
+  const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
 
   const load = () => listAdminUsers().then(setUsers).catch(e => toast.error(e.message));
@@ -16,7 +17,7 @@ export default function UsersAdmin({ currentUserId }: { currentUserId?: number }
   async function add() {
     if (!email.trim()) return;
     setBusy(true);
-    try { await createAdminUser(email.trim(), name.trim() || undefined, role); setEmail(''); setName(''); await load(); toast.success('User added.'); }
+    try { await createAdminUser(email.trim(), name.trim() || undefined, role, password || undefined); setPassword(''); setEmail(''); setName(''); await load(); toast.success('User added.'); }
     catch (e) { toast.error(e instanceof Error ? e.message : 'Could not add the user.'); }
     finally { setBusy(false); }
   }
@@ -32,6 +33,7 @@ export default function UsersAdmin({ currentUserId }: { currentUserId?: number }
         <label className="field-label">Email<input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="person@email.com" /></label>
         <label className="field-label">Name<input value={name} onChange={e => setName(e.target.value)} placeholder="Optional name" /></label>
         <label className="field-label">Role<select value={role} onChange={e => setRole(e.target.value as 'user' | 'admin')}><option value="user">Member</option><option value="admin">Admin</option></select></label>
+        <label className="field-label">Password<input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Initial password (8+ chars)" /></label>
         <div className="field-label" style={{ alignSelf: 'end' }}><button type="button" className="button primary" onClick={add} disabled={busy || !email.trim()}><UserPlus size={15} /> Add user</button></div>
       </div>
       <div className="ua-list">

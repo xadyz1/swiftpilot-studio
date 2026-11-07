@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, scryptSync, randomBytes, timingSafeEqual } from 'node:crypto';
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import { StudioError } from './safety';
@@ -35,7 +35,23 @@ export function readSession(req: Request): SessionPayload | null {
   } catch { return null; }
 }
 
-const loginSchema = z.object({ email: z.string().trim().email().max(320), name: z.string().trim().max(120).optional() }).strict();
+function makeHash(pw: string): string {
+  const salt = randomBytes(16).toString('hex');
+  return `${salt}:${scryptSync(pw, salt, 64).toString('hex')}`;
+}
+function checkHash(pw: string, hash: string | null | undefined): boolean {
+  if (!hash) return false;
+  const [salt, key] = hash.split(':');
+  if (!salt || !key) return false;
+  return timingSafeEqual(scryptSync(pw, salt, 64), Buffer.from(key, 'hex'));
+}
+
+const loginSchema = z.object({
+  email: z.string().trim().email().max(320),
+  name: z.string().trim().max(120).optional(),
+  password: z.string().min(8).max(200).optional(),
+  newPassword: z.string().min(8).max(200).optional(),
+}).strict();
 
 export async function login(req: Request, res: Response): Promise<void> {
   const parsed = loginSchema.safeParse(req.body);
@@ -48,7 +64,15 @@ export async function login(req: Request, res: Response): Promise<void> {
     if (!MASTER_EMAILS.has(email)) {
       throw new StudioError('No account exists for this email. Ask the master to add you.', 403);
     }
-    user = await createUser({ email, name: parsed.data.name, role: 'admin' });
+    if (!parsed.data.newPassword) { res.json({ needsPassword: true }); return; }
+    user = await createUser({ email, name: parsed.data.name, role: 'admin', passwordHash: makeHash(parsed.data.newPassword) });
+  } else if (!user.passwordHash) {
+    // Account exists without a password (admin-added): first sign-in sets it.
+    if (!parsed.data.newPassword) { res.json({ needsPassword: true }); return; }
+    await updateUser(user.id, { passwordHash: makeHash(parsed.data.newPassword) });
+    user = (await getUserByEmail(email))!;
+  } else if (!parsed.data.password || !checkHash(parsed.data.password, user.passwordHash)) {
+    throw new StudioError('Incorrect password.', 401);
   }
   issueCookie(res, user);
   res.json({ authenticated: true, user: { id: user.id, name: user.name, email: user.email, role: user.role } });
@@ -85,7 +109,7 @@ export async function requireAdminUser(req: Request): Promise<User> {
 }
 
 const userPatch = z.object({ id: z.number().int().positive(), name: z.string().trim().max(120).optional(), role: z.enum(['user', 'admin']).optional() }).strict();
-const userCreate = z.object({ email: z.string().trim().email().max(320), name: z.string().trim().max(120).optional(), role: z.enum(['user', 'admin']).optional() }).strict();
+const userCreate = z.object({ email: z.string().trim().email().max(320), name: z.string().trim().max(120).optional(), role: z.enum(['user', 'admin']).optional(), password: z.string().min(8).max(200).optional() }).strict();
 
 export async function adminUsers(req: Request, res: Response): Promise<void> {
   const session = requireSession(req);
@@ -99,7 +123,7 @@ export async function adminUsers(req: Request, res: Response): Promise<void> {
   if (req.method === 'POST') {
     const parsed = userCreate.safeParse(req.body);
     if (!parsed.success) throw new StudioError('Provide a valid email (and optionally name/role).', 400);
-    const created = await createUser({ email: parsed.data.email.toLowerCase(), name: parsed.data.name, role: parsed.data.role });
+    const created = await createUser({ email: parsed.data.email.toLowerCase(), name: parsed.data.name, role: parsed.data.role, passwordHash: parsed.data.password ? makeHash(parsed.data.password) : undefined });
     res.status(201).json({ user: { id: created.id, name: created.name, email: created.email, role: created.role } });
     return;
   }

@@ -30,6 +30,7 @@ export async function getDb() {
         name TEXT,
         email TEXT,
         loginMethod TEXT,
+        passwordHash TEXT,
         role TEXT NOT NULL DEFAULT 'user',
         createdAt INTEGER NOT NULL,
         updatedAt INTEGER NOT NULL,
@@ -50,6 +51,9 @@ export async function getDb() {
         createdAt INTEGER NOT NULL,
         updatedAt INTEGER NOT NULL
       );`);
+      // Migrations for already-initialized DBs.
+      const cols = sqlite.prepare("SELECT name FROM pragma_table_info('users')").all().map((r: any) => r.name);
+      if (!cols.includes('passwordHash')) sqlite.exec('ALTER TABLE users ADD COLUMN passwordHash TEXT');
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
@@ -95,7 +99,7 @@ export async function listUsers(): Promise<User[]> {
   return db.select().from(users).orderBy(users.createdAt);
 }
 
-export async function createUser(input: { email: string; name?: string; role?: "user" | "admin" }): Promise<User> {
+export async function createUser(input: { email: string; name?: string; role?: "user" | "admin"; passwordHash?: string }): Promise<User> {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
   const email = input.email.toLowerCase().trim();
@@ -104,16 +108,16 @@ export async function createUser(input: { email: string; name?: string; role?: "
   if (existing) return existing;
   const openId = `email:${email}`;
   const role = input.role ?? (MASTER_EMAILS.has(email) ? "admin" : "user");
-  await db.insert(users).values({ openId, email, name: input.name?.trim() || email.split("@")[0], loginMethod: "email", role, lastSignedIn: new Date() });
+  await db.insert(users).values({ openId, email, name: input.name?.trim() || email.split("@")[0], loginMethod: "email", role, passwordHash: input.passwordHash ?? null, lastSignedIn: new Date() });
   const created = await getUserByEmail(email);
   if (!created) throw new Error("User could not be created.");
   return created;
 }
 
-export async function updateUser(id: number, patch: { name?: string; role?: "user" | "admin" }): Promise<void> {
+export async function updateUser(id: number, patch: { name?: string; role?: "user" | "admin"; passwordHash?: string }): Promise<void> {
   const db = await getDb();
   if (!db) throw new Error("Database is not available");
-  if (patch.role === undefined && patch.name === undefined) return;
+  if (patch.role === undefined && patch.name === undefined && patch.passwordHash === undefined) return;
   await db.update(users).set({ ...(patch.name !== undefined ? { name: patch.name } : {}), ...(patch.role ? { role: patch.role } : {}), updatedAt: new Date() }).where(eq(users.id, id));
 }
 

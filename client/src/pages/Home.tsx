@@ -59,6 +59,9 @@ export default function Home() {
   const [signingIn,setSigningIn]=useState(false);
   const [signInEmail,setSignInEmail]=useState('');
   const [signInName,setSignInName]=useState('');
+  const [signInPass,setSignInPass]=useState('');
+  const [signInNew,setSignInNew]=useState('');
+  const [needsPassword,setNeedsPassword]=useState(false);
   useEffect(()=>{fetchAuth().then(a=>{setAuth(a);setAuthLoaded(true);if(a.authenticated){loadServerState().then(payload=>{if(payload&&typeof payload==='object'&&(payload as {projects?:unknown}).projects)setStudio(payload as typeof studio);});}});},[]);
   
   
@@ -127,10 +130,12 @@ export default function Home() {
         <img src="/landing/swiftpilot-mark-reference.jpeg" alt="SwiftPilot" className="signin-logo"/>
         <h2>Sign in to SwiftPilot</h2>
         <p className="helper-text">Enter your email to open your workspace. The master account is ivandro.work@gmail.com.</p>
-        <form onSubmit={async e=>{e.preventDefault();setSigningIn(true);try{const a=await authLogin(signInEmail.trim(),signInName.trim()||undefined);setAuth(a);const payload=await loadServerState();if(payload&&typeof payload==='object'&&(payload as {projects?:unknown}).projects)setStudio(payload as typeof studio);toast.success('Signed in.');}catch(err){toast.error(err instanceof Error?err.message:'Sign-in failed.');}finally{setSigningIn(false);}}}>
+        <form onSubmit={async e=>{e.preventDefault();setSigningIn(true);try{const r=await authLogin(signInEmail.trim(),{name:signInName.trim()||undefined,password:signInPass||undefined,newPassword:signInNew||undefined});if(r.needsPassword){setNeedsPassword(true);setSigningIn(false);return;}const a=r.auth!;setAuth(a);const payload=await loadServerState();if(payload&&typeof payload==='object'&&(payload as {projects?:unknown}).projects)setStudio(payload as typeof studio);toast.success('Signed in.');}catch(err){toast.error(err instanceof Error?err.message:'Sign-in failed.');}finally{setSigningIn(false);}}}>
           <input type="email" required value={signInEmail} onChange={e=>setSignInEmail(e.target.value)} placeholder="you@email.com"/>
-          <input value={signInName} onChange={e=>setSignInName(e.target.value)} placeholder="Your name (optional)"/>
-          <button className="button primary" type="submit" disabled={signingIn}>{signingIn?'Signing in…':'Sign in'}</button>
+          {!needsPassword&&<><input value={signInName} onChange={e=>setSignInName(e.target.value)} placeholder="Your name (optional)"/>
+          <input type="password" value={signInPass} onChange={e=>setSignInPass(e.target.value)} placeholder="Password"/></>}
+          {needsPassword&&<input type="password" required minLength={8} value={signInNew} onChange={e=>setSignInNew(e.target.value)} placeholder="Create a password (8+ characters)"/>}
+          <button className="button primary" type="submit" disabled={signingIn}>{signingIn?'Signing in…':needsPassword?'Set password & sign in':'Sign in'}</button>
         </form>
       </div></div>
     )}<div className="page-heading"><div><span className="eyebrow">{page==='projects'?'ONE STUDIO. EVERY BRAND.':`${project.name} / YOUR NEXT MOVE`}</span><h1>{pageNames[page]}<span className="heading-dot">.</span></h1><p>{pageDescriptions[page]}</p></div><div className="heading-actions">{page==='projects'?<button className="button primary" onClick={()=>setAddingProject(true)}><Plus size={17}/>Add project</button>:<><button className="button secondary" onClick={()=>go('sources')}><Globe size={15}/>Import website</button>{page!=='visual-studio'&&<button className="button primary" onClick={()=>openVisualStudio()}><Palette size={15}/>Open in Studio</button>}{['calendar','library'].includes(page)&&<button className="button secondary" onClick={()=>setGenerating(true)}><Sparkles size={16}/>Generate posts</button>}</>}</div></div>
