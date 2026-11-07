@@ -1,12 +1,21 @@
-FROM node:22-bookworm-slim
+# ---- Build stage ----
+FROM node:22-slim AS build
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@10.18.0 --activate
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY patches ./patches
-RUN CI=1 pnpm install --frozen-lockfile
+ENV PNPM_HOME=/pnpm PATH=$PNPM_HOME:$PATH
+RUN corepack enable
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
-ENV NODE_ENV=production
-ENV PORT=3000
+
+# ---- Runtime stage ----
+FROM node:22-slim
+WORKDIR /app
+ENV NODE_ENV=production PNPM_HOME=/pnpm PATH=$PNPM_HOME:$PATH
+RUN corepack enable
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prod
+COPY --from=build /app/dist ./dist
+RUN mkdir -p /app/data
 EXPOSE 3000
 CMD ["node", "dist/index.js"]
