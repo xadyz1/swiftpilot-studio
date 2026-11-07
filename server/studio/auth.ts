@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import type { Request, Response } from 'express';
 import { z } from 'zod';
 import { StudioError } from './safety';
-import { createUser, getUserByEmail, listUsers, updateUser, getDb, MASTER_EMAILS, loadStudioState, saveStudioState } from '../db';
+import { createUser, getUserByEmail, listUsers, updateUser, getDb, MASTER_EMAILS, loadStudioState, saveStudioState, createLead, listLeads } from '../db';
 import type { User } from '../../drizzle/schema';
 
 const COOKIE = 'sp_session';
@@ -133,6 +133,24 @@ export async function studioStateHandler(req: Request, res: Response): Promise<v
     if (text.length > 2 * 1024 * 1024) throw new StudioError('The workspace payload is too large (2MB max).', 400);
     await saveStudioState(user.id, text);
     res.json({ ok: true });
+    return;
+  }
+  res.status(405).end();
+}
+
+const leadSchema = z.object({ name: z.string().trim().min(1).max(120), email: z.string().trim().email().max(320), brands: z.number().int().min(1).max(100).optional(), notes: z.string().trim().max(2000).optional() }).strict();
+
+export async function leadsHandler(req: Request, res: Response): Promise<void> {
+  if (req.method === 'POST') {
+    const parsed = leadSchema.safeParse(req.body);
+    if (!parsed.success) throw new StudioError('Please provide your name and a valid email.', 400);
+    await createLead({ name: parsed.data.name, email: parsed.data.email.toLowerCase(), brands: parsed.data.brands ?? 1, notes: parsed.data.notes });
+    res.status(201).json({ ok: true });
+    return;
+  }
+  if (req.method === 'GET') {
+    await requireAdminUser(req);
+    res.json({ leads: await listLeads() });
     return;
   }
   res.status(405).end();

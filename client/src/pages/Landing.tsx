@@ -268,8 +268,12 @@ export default function Landing() {
     : '/landing/swiftpilot-light-reference.png';
   const mark = '/landing/swiftpilot-mark-reference.jpeg';
 
-  const handleModalSubmit = (e: FormEvent) => {
+  const handleModalSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('/api/studio/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formName, email: formEmail, brands: formBrands, notes: formNotes }) });
+    } catch { /* lead capture must never block the UX */ }
     setSubmitted(true);
     setTimeout(() => {
       setIsModalOpen(false);

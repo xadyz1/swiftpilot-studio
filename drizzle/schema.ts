@@ -41,3 +41,14 @@ export const studioState = sqliteTable("studio_state", {
 
 export type StudioState = typeof studioState.$inferSelect;
 export type InsertStudioState = typeof studioState.$inferInsert;
+
+/** Landing-page quote requests ("Pedir Orçamento"). */
+export const leads = sqliteTable("leads", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  brands: integer("brands").notNull().default(1),
+  notes: text("notes"),
+  createdAt: integer("createdAt", { mode: "timestamp_ms" }).$defaultFn(() => new Date()).notNull(),
+});
+export type Lead = typeof leads.$inferSelect;

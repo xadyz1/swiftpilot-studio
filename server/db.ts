@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
-import { InsertUser, User, users, studioState } from "../drizzle/schema";
+import { InsertUser, User, users, studioState, leads } from "../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 let _ready = false;
@@ -34,6 +34,14 @@ export async function getDb() {
         createdAt INTEGER NOT NULL,
         updatedAt INTEGER NOT NULL,
         lastSignedIn INTEGER NOT NULL
+      );
+      CREATE TABLE IF NOT EXISTS leads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        brands INTEGER NOT NULL DEFAULT 1,
+        notes TEXT,
+        createdAt INTEGER NOT NULL
       );
       CREATE TABLE IF NOT EXISTS studio_state (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -125,4 +133,15 @@ export async function loadStudioState(userId: number): Promise<string | undefine
   if (!db) return undefined;
   const rows = await db.select().from(studioState).where(eq(studioState.userId, userId)).limit(1);
   return rows[0]?.payload;
+}
+
+export async function createLead(input: { name: string; email: string; brands: number; notes?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(leads).values({ name: input.name, email: input.email, brands: input.brands, notes: input.notes ?? null });
+}
+export async function listLeads() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(leads).orderBy(leads.createdAt);
 }

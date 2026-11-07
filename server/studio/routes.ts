@@ -4,7 +4,7 @@ import { StudioError, safeFetch, MEDIA_MIMES, mediaSignatureMatches, publicUrl }
 import { crawlWebsite } from './crawl';
 import { generateContent } from './generate';
 import { sendNotify } from './mail';
-import { login, logout, me, adminUsers, studioStateHandler } from './auth';
+import { login, logout, me, adminUsers, studioStateHandler, leadsHandler } from './auth';
 import { uploadMedia, uploadStatus } from './upload';
 
 function sendError(res: Response, error: unknown): void {
@@ -54,6 +54,10 @@ export function registerStudioRoutes(app: Express): void {
   });
   app.all('/api/studio/state', async (req, res) => {
     try { await studioStateHandler(req, res); } catch (error) { sendError(res, error); }
+  });
+
+  app.all('/api/studio/leads', async (req, res) => {
+    try { await leadsHandler(req, res); } catch (error) { sendError(res, error); }
   });
 
   app.get('/api/studio/upload/status', (_req, res) => res.json(uploadStatus()));
