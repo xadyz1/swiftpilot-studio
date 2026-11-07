@@ -113,5 +113,5 @@ temp/
 client/public/__manus__/version.json
 
 # Runtime SQLite data
-data/
+/data/
 *.db

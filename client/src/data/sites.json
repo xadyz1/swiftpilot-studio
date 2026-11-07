@@ -1,0 +1,301 @@
+[
+  {
+    "id": "hungrypockets",
+    "name": "Hungry Pockets",
+    "url": "https://hungrypockets.eu/",
+    "description": "HungryPockets is a European streetwear shop whose positioning centers on the phrase \"Always Starving Since 2014\" and the idea of an official uniform for people driven to keep growing.",
+    "summary": "Hungry Pockets presents itself as a streetwear brand founded in 2014 around a chest-pocket symbol and an always-hungry mindset. The homepage describes the brand as \"the official uniform of the hustle\" and links to men’s and women’s collections, latest drops, a Hustle Journal, Instagram, TikTok, and Pinterest. The manifesto expands the positioning into urban, effort-oriented language: hunger means drive rather than lack, with references to early gym sessions, late-night coding, skating practice, protection, utility, and \"urban armor.\" The site uses a dark black/white visual system with red highlights and Oswald typography. Product pages and the shop are linked from the homepage, but this record does not infer unverified product claims beyond the visible site copy.",
+    "brand": {
+      "name": "HUNGRY POCKETS",
+      "headingFont": "Oswald",
+      "bodyFont": "Oswald",
+      "primary": "#E63946",
+      "secondary": "#2563EB",
+      "background": "#111111",
+      "text": "#F5F5F5",
+      "logo": "/projects/hungrypockets/logo.png",
+      "uppercase": true,
+      "style": "bold",
+      "tagline": "Always starving since 2014.",
+      "voice": "Direct, defiant, energetic, compact, and motivational. Use concrete hustle language without sounding corporate. Keep the tone streetwear-editorial and focused on drive, growth, utility, and self-direction.",
+      "audience": "People drawn to streetwear and an ambition-led urban lifestyle, including people who identify with persistent training, creative work, coding, skating, and personal growth.",
+      "instagram": "https://instagram.com/hungrypockets",
+      "tiktok": "https://tiktok.com/@hungrypockets"
+    },
+    "pages": [
+      {
+        "url": "https://hungrypockets.eu/?lang=en",
+        "title": "HungryPockets — Always Starving Since 2014 — HungryPockets",
+        "text": "Always Starving Since 2014. The official uniform of the hustle. Shop the drop. The manifesto. Homepage copy says the idea is a chest pocket representing pure hustle and the mindset is Always Starving. It features latest drops and most wanted products, including Five Panel Cap, Dad hat, Women’s crop top, Unisex windbreaker, Brand Oversized faded t-shirt, Oversized faded t-shirt, Cuffed Beanie, and camisa curta homem preta. It links to Men, Women, New Arrivals, Limited Drops, The Manifesto, Hustle Journal, Instagram (https://instagram.com/hungrypockets), TikTok (https://tiktok.com/@hungrypockets), and Pinterest (https://pinterest.com/hungrypockets). Footer positioning: Always starving since 2014. The evolution of the pocket. Crafted for those who never stop. A newsletter invitation says Join the circle. Get early access to drops. Source HTML exposes Oswald from Google Fonts and CSS tokens including --bg:#111111, --panel:#1a1a1a, --text:#f5f5f5, --muted:#a3a3a3, --red:#e63946, --line:#ffffff14, and --accent:#e63946, with a light-theme variant using --bg:#ffffff, --panel:#f2f2f2, --text:#111111, and --muted:#555555."
+      },
+      {
+        "url": "https://hungrypockets.eu/manifesto?lang=en",
+        "title": "The Pocket Manifesto — HungryPockets",
+        "text": "The Pocket Manifesto. Always starving since 2014. Origin: It all started in 2014. Not in a boardroom, but on the concrete. Hungry Pockets wasn't conceived as a brand, but as a statement. The idea was simple: a chest pocket representing the hunger for more. More growth, more success, more life. Mentality: Always Starving isn't about lack; it's about drive. It's the 5 AM gym session. It's the midnight code. It's the skate trick perfected on the 100th fall. Our gear is the official uniform for those who refuse to be full. Evolution: 2026 is the year we stop just having pockets and start being the pocket. Protection, utility, and pure urban armor. Quote: If your pockets are full, you've stopped growing. Stay hungry. Stay Hungry. The page links to Shop the drop and the same official Instagram, TikTok, and Pinterest profiles."
+      }
+    ],
+    "media": [
+      {
+        "id": "logo",
+        "name": "HungryPockets white logo",
+        "url": "/projects/hungrypockets/logo.png",
+        "kind": "image",
+        "sourceUrl": "https://hungrypockets.eu/assets/img/logowhite.png"
+      },
+      {
+        "id": "men-editorial",
+        "name": "Men collection editorial image",
+        "url": "/projects/hungrypockets/man.webp",
+        "kind": "image",
+        "sourceUrl": "https://hungrypockets.eu/assets/img/man.webp"
+      },
+      {
+        "id": "women-editorial",
+        "name": "Women collection editorial image",
+        "url": "/projects/hungrypockets/women.webp",
+        "kind": "image",
+        "sourceUrl": "https://hungrypockets.eu/assets/img/women.webp"
+      },
+      {
+        "id": "five-panel-cap",
+        "name": "Five Panel Cap product image",
+        "url": "/projects/hungrypockets/five-panel-cap.png",
+        "kind": "image",
+        "sourceUrl": "https://files.cdn.printful.com/files/99c/99c628b185d7c3d264c94c9747d53e43_preview.png"
+      },
+      {
+        "id": "dad-hat",
+        "name": "Dad hat product image",
+        "url": "/projects/hungrypockets/dad-hat.png",
+        "kind": "image",
+        "sourceUrl": "https://files.cdn.printful.com/files/823/8239576953a4e68631ca2ce6127a8d56_preview.png"
+      }
+    ],
+    "templates": [],
+    "warnings": [
+      "The official homepage HTML links Oswald from Google Fonts and uses Oswald in its inline styling; the record therefore uses Oswald for both headingFont and bodyFont. The owner instruction explicitly requires uppercase Oswald headlines.",
+      "Exact CSS tokens observed in the homepage/manifesto HTML include #111111 background, #f5f5f5 text, #e63946 red primary/accent, #1a1a1a panel, and #a3a3a3 muted text. The secondary blue #2563eb is an owner-specified occasional accent override, not an exact site CSS token observed in the fetched HTML.",
+      "The four templates are editorial concepts based only on verified homepage and manifesto language. They avoid unverified customer claims, promotions, availability, shipping claims, and prices.",
+      "The product preview assets are linked by the official homepage from files.cdn.printful.com and were downloaded as exact original response bytes; they are retained only as original linked project media.",
+      "No generic stock imagery was downloaded. No video asset was downloaded; the Video template uses an original site image as its visual reference and requires motion treatment in the social planner."
+    ]
+  },
+  {
+    "id": "swiftdisplay",
+    "name": "SwiftDisplay",
+    "url": "https://swiftdisplay.pt/",
+    "description": "SwiftDisplay is a Portuguese digital-signage service for creating, scheduling, and updating content across screens from one place.",
+    "summary": "SwiftDisplay positions itself as simple digital signage with impact. Its official homepage describes centralized screen management, editable templates, scheduling, multi-screen content, widgets/integrations, offline playback of the last valid schedule, and compatibility paths including web browsers, Android TV, Smart TV, and computers connected to displays. It presents use cases for restaurants, clinics and health, companies, and retail, and links to a public café-menu simulator. The site is Portuguese-language; the social copy below is an English adaptation grounded only in verified public wording.",
+    "brand": {
+      "name": "SwiftDisplay",
+      "headingFont": "Manrope",
+      "bodyFont": "DM Sans",
+      "primary": "#2B7558",
+      "secondary": "#70AA82",
+      "background": "#F5F7F5",
+      "text": "#192720",
+      "logo": "/projects/swiftdisplay/swiftdisplaylogo.png",
+      "uppercase": false,
+      "style": "editorial",
+      "tagline": "Mensagens que chegam mais longe.",
+      "voice": "Clear, reassuring, practical, and benefit-led; the source copy emphasizes less complexity, clearer communication, guided setup, and content that stays relevant.",
+      "audience": "Teams and organizations communicating on digital screens, especially restaurants, clinics and health settings, companies, retail businesses, agencies, resellers, and AV/IT installers.",
+      "instagram": "",
+      "tiktok": ""
+    },
+    "pages": [
+      {
+        "url": "https://swiftdisplay.pt/",
+        "title": "SwiftDisplay · Sinalização digital",
+        "text": "Official homepage. The site says users can create, schedule, and update content for screens in one place. It presents use cases for restaurants, clinics and health, companies, and retail; features including centralized management, editable templates, scheduling, widgets and integrations, multi-screen content, content updates, and cached playback during network outages; device paths including web browser, Android TV, Smart TV, and a computer connected to a screen; and a public café-menu simulator link. The footer tagline is 'Mensagens que chegam mais longe.'"
+      },
+      {
+        "url": "https://swiftdisplay.pt/niche/swiftdisplay-cafes-menus.html",
+        "title": "Digital Signage Simulator - SwiftDisplay",
+        "text": "Official public simulator page showing a café-menu example in Lisbon: weather 24°C, coffee category, Especialidades de Café, Expresso Roast, Cappuccino, Flat White, and Matcha Latte. The page displays example prices and descriptions as part of the simulator, not as verified SwiftDisplay commercial pricing or an active customer offer."
+      },
+      {
+        "url": "https://swiftdisplay.pt/cookies",
+        "title": "Política de Cookies - SwiftDisplay",
+        "text": "Official cookie policy, last updated October 2026. It says SwiftDisplay does not use advertising or third-party tracking cookies and uses technically necessary authentication session storage, localStorage, and service-worker cache; Stripe may set antifraud cookies during checkout."
+      }
+    ],
+    "media": [
+      {
+        "id": "swiftdisplay-logo",
+        "name": "SwiftDisplay official logo",
+        "url": "/projects/swiftdisplay/swiftdisplaylogo.png",
+        "kind": "image",
+        "sourceUrl": "https://swiftdisplay.pt/swiftdisplaylogo.png"
+      }
+    ],
+    "templates": [],
+    "warnings": [
+      "The official site is Portuguese-language; English social copy is an adaptation of verified public text, not an official translation.",
+      "No official Instagram or TikTok profile URLs were exposed in the inspected homepage, simulator page, or cookie policy; brand.instagram and brand.tiktok are therefore blank.",
+      "The linked CSS loads DM Sans, Manrope, Inter, Playfair Display, and Oswald. The active root landing-page assignment uses DM Sans for body text and Manrope for prominent headings/brand elements; other families appear in embedded product/template views.",
+      "Active landing-page CSS tokens inspected: primary green #2B7558, secondary green #70AA82, background #F5F7F5, and text/ink #192720. The palette fields use these exact observed CSS values.",
+      "Only the official logo was downloaded because the inspected public pages did not expose additional clearly original project photos, product screenshots, or videos as standalone media files. No images were generated.",
+      "Pricing, displayed café-menu prices, trial language, and feature availability were not used in social CTAs or represented as promotions."
+    ]
+  },
+  {
+    "id": "swiftcal",
+    "name": "SwiftCal",
+    "url": "https://swiftcal.pt/",
+    "description": "SwiftCal is a modern calendar and scheduling web application for appointments with individuals and teams. The official homepage presents integrated video, branded booking links, website embeds, automated email workflows, services and Stripe payments, Google Calendar and Microsoft Outlook integrations, team calendars, push notifications, a PWA install path, live demos, and Individual and Teams plans.",
+    "summary": "SwiftCal presents itself as a clean, modern scheduling SaaS with a blue-and-orange visual system. The official homepage is in Portuguese and emphasizes effortless booking, integrated videoconferencing, automated workflows, branded booking pages, external website widgets, payment-enabled services, calendar integrations, team availability, push alerts, PWA installation, live demos, and paid Individual and Teams plans. The privacy page states that the service collects name, email, and scheduling data and uses it to provide, maintain, and improve the service and process bookings.",
+    "brand": {
+      "name": "SwiftCal",
+      "headingFont": "ui-sans-serif, system-ui, sans-serif (CSS utility stack; no named webfont loaded)",
+      "bodyFont": "ui-sans-serif, system-ui, sans-serif (CSS utility stack; no named webfont loaded)",
+      "primary": "#1268ee",
+      "secondary": "#ff7918",
+      "background": "#f5f7fb",
+      "text": "#111827",
+      "logo": "/projects/swiftcal/swiftcal.png",
+      "uppercase": false,
+      "style": "minimal",
+      "tagline": "Agendamentos de forma perfeita.",
+      "voice": "Clear, reassuring, practical, and feature-led; the site speaks directly to people managing appointments and teams.",
+      "audience": "Freelancers, independent professionals, teams, and their appointment-booking clients (audience inferred from the official Individual/Teams positioning and feature copy).",
+      "instagram": "",
+      "tiktok": ""
+    },
+    "pages": [
+      {
+        "url": "https://swiftcal.pt/",
+        "title": "SwiftCal - Seamless Scheduling",
+        "text": "Official homepage in Portuguese. Hero: 'Agendamentos de forma perfeita.' It describes effortless bookings, integrated videoconferencing, and automated workflows. Feature sections cover integrated video, branded booking links, website integration, automated confirmations/cancellations/email notifications, services and Stripe payments, Google Calendar, Microsoft Outlook, team calendars, and push notifications. It also documents PWA installation on iOS and Android, shows three SwiftCal app screens, links to booking/profile demos, and lists Individual (€5/month) and Teams (€15/month, 3 users included plus extra-user pricing) plans, with VAT note. The page footer links Privacy and Terms. Verified assets and CSS: https://swiftcal.pt/_next/static/css/57e826a72713dd81.css; https://swiftcal.pt/swiftcal.png; https://swiftcal.pt/swiftcalw.png; https://swiftapps.b-cdn.net/cal-screen-3.jpeg; https://swiftapps.b-cdn.net/cal-screen-1.jpeg; https://swiftapps.b-cdn.net/cal-screen-2.jpeg"
+      },
+      {
+        "url": "https://swiftcal.pt/privacy",
+        "title": "Política de Privacidade",
+        "text": "Official privacy page, updated 06/11/2026. It says SwiftCal collects information supplied directly by users, including name, email, and scheduling data; uses information to provide, maintain, and improve services and process bookings; applies security measures against unauthorized access; and gives users rights to access, correct, or delete their data."
+      }
+    ],
+    "media": [
+      {
+        "id": "swiftcal-logo",
+        "name": "SwiftCal logo",
+        "url": "/projects/swiftcal/swiftcal.png",
+        "kind": "image",
+        "sourceUrl": "https://swiftcal.pt/swiftcal.png"
+      },
+      {
+        "id": "swiftcal-logo-white",
+        "name": "SwiftCal white logo",
+        "url": "/projects/swiftcal/swiftcalw.png",
+        "kind": "image",
+        "sourceUrl": "https://swiftcal.pt/swiftcalw.png"
+      },
+      {
+        "id": "swiftcal-screen-3",
+        "name": "SwiftCal app screen 3",
+        "url": "/projects/swiftcal/cal-screen-3.jpeg",
+        "kind": "image",
+        "sourceUrl": "https://swiftapps.b-cdn.net/cal-screen-3.jpeg"
+      },
+      {
+        "id": "swiftcal-screen-1",
+        "name": "SwiftCal app screen 1",
+        "url": "/projects/swiftcal/cal-screen-1.jpeg",
+        "kind": "image",
+        "sourceUrl": "https://swiftapps.b-cdn.net/cal-screen-1.jpeg"
+      },
+      {
+        "id": "swiftcal-screen-2",
+        "name": "SwiftCal app screen 2",
+        "url": "/projects/swiftcal/cal-screen-2.jpeg",
+        "kind": "image",
+        "sourceUrl": "https://swiftapps.b-cdn.net/cal-screen-2.jpeg"
+      }
+    ],
+    "templates": [],
+    "warnings": [
+      "Homepage and privacy page are official and reachable over HTTPS; homepage content is primarily Portuguese.",
+      "Heading and body font identity is the accessible CSS system stack 'ui-sans-serif, system-ui, sans-serif'; no named custom webfont was loaded in the inspected stylesheet.",
+      "Brand colors are exact CSS tokens from the official stylesheet: primary #1268ee (--sc-blue), dark blue #0d4fc0 (--sc-blue-dark), orange #ff7918 (--sc-orange), ink #111827 (--sc-ink), muted #687184, line #e7eaf0, surface #fff, and canvas/background #f5f7fb.",
+      "Audience description is a cautious inference from official feature and plan copy. No official Instagram or TikTok handles were found on the inspected public pages, so those fields are blank.",
+      "All five downloaded files are original bytes from official SwiftCal or SwiftApps CDN URLs; no generated or generic stock imagery was used."
+    ]
+  },
+  {
+    "id": "goldenmailbox",
+    "name": "Golden Mailbox",
+    "url": "https://goldenmailbox.pt/",
+    "description": "Golden Mail Box is a virtual mailbox service presented from Loulé, Portugal. The official site describes receiving physical mail, photographing envelope exteriors, notifying customers digitally, and letting customers request opening and scanning, forwarding, or secure destruction.",
+    "summary": "The official Portuguese and English pages position Golden Mail Box as a premium virtual mailbox for entrepreneurs, expatriates, freelancers, and businesses in Portugal. The site emphasizes a physical address in Loulé/Algarve, digital notifications, remote mail actions, GDPR/privacy language, and local operator growth. Inline CSS defines Inter for body text and the visual system uses white, navy, blue, pale blue, ink, muted slate, and orange/gold accents. No official Instagram or TikTok URL was exposed in the inspected homepage HTML.",
+    "brand": {
+      "name": "Golden Mail Box",
+      "headingFont": "Inter (the inline CSS sets body font-family to Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif; no separate heading family is declared)",
+      "bodyFont": "Inter",
+      "primary": "#2463EB",
+      "secondary": "#F4A524",
+      "background": "#FFFFFF",
+      "text": "#11243B",
+      "logo": "/projects/goldenmailbox/goldenmailbox.png",
+      "uppercase": "Eyebrows, navigation labels, plan labels, and some UI labels use uppercase styling; body copy is sentence case.",
+      "style": "minimal",
+      "tagline": "Your mail, wherever you are",
+      "voice": "Clear, reassuring, practical, privacy-conscious, and lightly premium; explain remote mail handling in direct language.",
+      "audience": "Entrepreneurs, expatriates, freelancers, remote founders, and companies needing a Portugal mailing address or remote mail management.",
+      "instagram": "",
+      "tiktok": ""
+    },
+    "pages": [
+      {
+        "url": "https://goldenmailbox.pt/",
+        "title": "Golden Mail Box — O seu correio, onde quer que esteja",
+        "text": "Official Portuguese homepage. Key source copy: premium virtual mailbox in Loulé, Portugal; physical mail can be viewed, scanned, forwarded, or securely destroyed remotely; the page describes a Loulé hub, digital envelope-photo notifications, opening and scanning to searchable PDFs, global forwarding, certified secure destruction, fiscal/legal registration use, operator partnerships, plans, privacy/GDPR language, and the Gil virtual assistant."
+      },
+      {
+        "url": "https://goldenmailbox.pt/en",
+        "title": "Golden Mail Box — Your mail, wherever you are",
+        "text": "Official English alternate page. It confirms the English positioning and the same service narrative: a premium virtual mailbox in Loulé, Portugal for viewing, scanning, forwarding, or securely shredding physical mail from anywhere."
+      }
+    ],
+    "media": [
+      {
+        "id": "goldenmailbox-logo",
+        "name": "Golden Mail Box official brand image",
+        "url": "/projects/goldenmailbox/goldenmailbox.png",
+        "kind": "image",
+        "sourceUrl": "https://golden-file-share.b-cdn.net/goldenmailbox/1793409212144_goldenmailbox.png"
+      },
+      {
+        "id": "gil-profile",
+        "name": "Gil, Golden Mail Box virtual assistant portrait",
+        "url": "/projects/goldenmailbox/gil-profile.jpeg",
+        "kind": "image",
+        "sourceUrl": "https://goldenmailbox.pt/static/icons/gil-profile.jpeg"
+      }
+    ],
+    "templates": [],
+    "warnings": [
+      "Research was limited to the official homepage and its official /en alternate page, plus direct HTML/CSS inspection; no shared browser was used.",
+      "The site exposes its main visual system in inline CSS rather than linked stylesheets. Exact CSS colors recorded: primary #2463EB, secondary orange #F4A524, navy #08192F, navy2 #102641, pale #F5F8FD, ink #11243B, muted #64748B, line #E2E9F2, white #FFFFFF.",
+      "No official Instagram or TikTok profile URL was found in the inspected homepage HTML, so those fields are blank rather than inferred.",
+      "The official pages contain Portuguese pricing and operational claims. Templates intentionally avoid prices, promotions, customer counts, availability promises, and any feature not directly stated in the source pages.",
+      "Downloaded assets are exact original bytes from the verified source URLs; no generated or stock imagery was used."
+    ]
+  },
+  {
+    "id": "lojapilot",
+    "name": "LojaPilot",
+    "url": "https://lojapilot.pt/",
+    "description": "",
+    "summary": "",
+    "brand": {
+      "style": "minimal",
+      "logo": "",
+      "uppercase": false
+    },
+    "pages": [],
+    "media": [],
+    "templates": [],
+    "warnings": [
+      "Import the website or customize its brand kit to begin."
+    ]
+  }
+]
