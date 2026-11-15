@@ -167,7 +167,7 @@ export default function SourceImporter({ project, onImported }: SourceImporterPr
       <header className="settings-header">
         <span className="eyebrow">GROUND YOUR CONTENT</span>
         <h2 id={`${id}-title`}>Website sources</h2>
-        <p className="helper-text">Import public website text and discover media. This provides the facts used to generate drafts for {project.name}.</p>
+        <p className="helper-text">Crawl public website copy and discover images or videos. AI uses the imported facts to write captions and select relevant media; Visual Studio is where you edit each design and download it.</p>
       </header>
       <form className="source-import-form" onSubmit={importWebsite} noValidate>
         <fieldset className="setting-grid" disabled={busy}>

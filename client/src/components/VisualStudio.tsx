@@ -137,10 +137,10 @@ export default function VisualStudio({
   const [animDuration, setAnimDuration] = useState<4 | 6 | 8>(6);
 
   // Custom styling overrides
-  const [customPrimary, setCustomPrimary] = useState<string>(project.brand.primary);
-  const [customSecondary, setCustomSecondary] = useState<string>(project.brand.secondary);
-  const [customBg, setCustomBg] = useState<string>(project.brand.background);
-  const [customText, setCustomText] = useState<string>(project.brand.text);
+  const [customPrimary, setCustomPrimary] = useState<string>(initialTemplate.colorOverrides?.primary ?? project.brand.primary);
+  const [customSecondary, setCustomSecondary] = useState<string>(initialTemplate.colorOverrides?.secondary ?? project.brand.secondary);
+  const [customBg, setCustomBg] = useState<string>(initialTemplate.colorOverrides?.background ?? project.brand.background);
+  const [customText, setCustomText] = useState<string>(initialTemplate.colorOverrides?.text ?? project.brand.text);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const previewContainerRef = useRef<HTMLDivElement | null>(null);
@@ -222,6 +222,16 @@ export default function VisualStudio({
   // Patch template helper
   const updateTemplate = (patch: Partial<ContentTemplate>) => {
     setTemplate(prev => ({ ...prev, ...patch }));
+  };
+  const updateColor = (key: 'primary' | 'secondary' | 'background' | 'text', value: string) => {
+    const setters = {
+      primary: setCustomPrimary,
+      secondary: setCustomSecondary,
+      background: setCustomBg,
+      text: setCustomText,
+    };
+    setters[key](value);
+    updateTemplate({ colorOverrides: { ...template.colorOverrides, [key]: value } });
   };
 
   // Slides management
@@ -1033,7 +1043,7 @@ export default function VisualStudio({
                       <input
                         type="color"
                         value={customPrimary}
-                        onChange={e => setCustomPrimary(e.target.value)}
+                        onChange={e => updateColor('primary', e.target.value)}
                       />
                       <span>Primary</span>
                     </div>
@@ -1041,7 +1051,7 @@ export default function VisualStudio({
                       <input
                         type="color"
                         value={customSecondary}
-                        onChange={e => setCustomSecondary(e.target.value)}
+                        onChange={e => updateColor('secondary', e.target.value)}
                       />
                       <span>Accent</span>
                     </div>
@@ -1049,7 +1059,7 @@ export default function VisualStudio({
                       <input
                         type="color"
                         value={customBg}
-                        onChange={e => setCustomBg(e.target.value)}
+                        onChange={e => updateColor('background', e.target.value)}
                       />
                       <span>Canvas</span>
                     </div>
@@ -1057,7 +1067,7 @@ export default function VisualStudio({
                       <input
                         type="color"
                         value={customText}
-                        onChange={e => setCustomText(e.target.value)}
+                        onChange={e => updateColor('text', e.target.value)}
                       />
                       <span>Text</span>
                     </div>
@@ -1203,8 +1213,16 @@ export default function VisualStudio({
               <div className="vs-tab-content">
                 <div className="vs-section-heading">
                   <h3>Social Captions & Notes</h3>
-                  <p>Dual-platform formatted copy ready for Instagram and TikTok.</p>
+                  <p>Review and edit your copy. AI drafts include a traceable quote from the crawled source.</p>
                 </div>
+
+                {template.sourceEvidence && (
+                  <div className="vs-source-evidence">
+                    <strong>Source evidence</strong>
+                    <blockquote>{template.sourceEvidence}</blockquote>
+                    {template.sourceUrl && <a href={template.sourceUrl} target="_blank" rel="noreferrer">Open crawled page ↗</a>}
+                  </div>
+                )}
 
                 <div className="vs-platform-tabs">
                   <button

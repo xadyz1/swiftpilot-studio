@@ -116,12 +116,26 @@ export function applyWebsiteImport(project:SiteProject,result:CrawlResult,applyB
   const brand=applyBrand ? {...project.brand,...suggestions,...(project.id==='hungrypockets'?{headingFont:'Oswald',bodyFont:'Oswald',uppercase:true,primary:project.brand.primary,secondary:project.brand.secondary}: {})} : project.brand;
   return {...project,description:result.description || project.description,sources:result.pages,media:mergedMedia,brand,importedAt:result.fetchedAt,importWarnings:result.warnings};
 }
+export function saveProjectTemplate(project: SiteProject, template: ContentTemplate): SiteProject {
+  const templates = project.templates.some(existing => existing.id === template.id)
+    ? project.templates.map(existing => existing.id === template.id ? template : existing)
+    : [template, ...project.templates];
+  return {
+    ...project,
+    templates,
+    planner: {
+      ...project.planner,
+      edits: { ...project.planner.edits, [template.id]: template },
+      posts: project.planner.posts.map(post => post.templateId === template.id ? { ...post, content: template } : post),
+    },
+  };
+}
 export function plannedSuggestions(contents:ContentTemplate[],startDate:string,daysBetween:number,time:string) {
   const start=new Date(`${startDate}T12:00:00`);
   if(Number.isNaN(start.getTime())) throw new Error('Choose a valid start date.');
   return contents.map((content,index)=>{
     const date=new Date(start); date.setDate(start.getDate()+index*daysBetween);
     const platform=index%2===1&&content.platforms.includes('tiktok')?'tiktok':content.platforms[0];
-    return {id:crypto.randomUUID(),templateId:content.id,platform,date:dateKey(date),time,status:'scheduled' as const,content};
+    return {id:crypto.randomUUID(),templateId:content.id,platform,language:content.language,date:dateKey(date),time,status:'scheduled' as const,content};
   });
 }

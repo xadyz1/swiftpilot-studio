@@ -2,6 +2,7 @@ import JSZip from 'jszip';
 import { describe, expect, it, vi } from 'vitest';
 import { initialStudio } from './studio';
 import { downloadProjectPack } from './project-export';
+import { renderStudioCanvas } from './studio-canvas';
 
 vi.mock('./studio-canvas', () => ({
   canvasDimensions: (format: string) => format === 'square'
@@ -16,7 +17,11 @@ vi.mock('./studio-canvas', () => ({
 describe('project content pack export', () => {
   it('includes scheduled copy and square plus vertical Story artwork', async () => {
     const project = initialStudio().projects.find(item => item.id === 'goldencreative')!;
-    const post = project.planner.posts[0];
+    const originalPost = project.planner.posts[0];
+    const post = {
+      ...originalPost,
+      content: { ...originalPost.content!, colorOverrides: { primary: '#123456', background: '#ffffff' } },
+    };
     let archiveBlob: Blob | undefined;
     const link = { href: '', download: '', click: vi.fn() };
     vi.stubGlobal('document', {
@@ -42,6 +47,10 @@ describe('project content pack export', () => {
     expect(filenames.some(name => name.startsWith('stories-9x16/') && name.endsWith('1080x1920.png'))).toBe(true);
     const csv = await archive.file('calendar-schedule.csv')!.async('string');
     expect(csv).toContain('pt');
+    expect(vi.mocked(renderStudioCanvas).mock.calls[0][2]).toMatchObject({
+      customPrimaryColor: '#123456',
+      customBackgroundColor: '#ffffff',
+    });
     expect(link.click).toHaveBeenCalledOnce();
     vi.restoreAllMocks();
     vi.unstubAllGlobals();

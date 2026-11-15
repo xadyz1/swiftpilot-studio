@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { initialStudio, loadStudio, STUDIO_KEY } from './studio';
+import { initialStudio, loadStudio, saveProjectTemplate, STUDIO_KEY } from './studio';
 
 describe('saved workspace campaign migration', () => {
   it('adds newly seeded projects and campaigns without replacing a saved brand kit', () => {
@@ -36,5 +36,21 @@ describe('saved workspace campaign migration', () => {
     expect(migratedLojaPilot.planner.posts.some(post => post.id === 'saved-post')).toBe(true);
     expect(migratedLojaPilot.planner.posts.filter(post => post.id.startsWith('starter-lojapilot-'))).toHaveLength(8);
     vi.unstubAllGlobals();
+  });
+
+  it('keeps visual edits in the library and every matching planned post', () => {
+    const project = initialStudio().projects.find(item => item.id === 'swiftcal')!;
+    const post = project.planner.posts[0];
+    const edited = {
+      ...post.content!,
+      headline: 'Edited in Visual Studio',
+      colorOverrides: { primary: '#123456' },
+    };
+
+    const saved = saveProjectTemplate(project, edited);
+
+    expect(saved.templates.find(item => item.id === edited.id)?.headline).toBe('Edited in Visual Studio');
+    expect(saved.planner.edits[edited.id]).toEqual(edited);
+    expect(saved.planner.posts.find(item => item.id === post.id)?.content).toEqual(edited);
   });
 });

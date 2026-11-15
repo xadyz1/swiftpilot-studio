@@ -22,6 +22,10 @@ export async function renderTemplatePNG(
     layout: template.layout,
     activeSlideIndex: slideIndex,
     scale: 1,
+    customPrimaryColor: template.colorOverrides?.primary,
+    customSecondaryColor: template.colorOverrides?.secondary,
+    customBackgroundColor: template.colorOverrides?.background,
+    customTextColor: template.colorOverrides?.text,
   });
   return new Promise((resolve, reject) => {
     canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('A post image could not be rendered.')), 'image/png');
