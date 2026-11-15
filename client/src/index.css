@@ -856,6 +856,10 @@ h1 {
   opacity: 0.8;
   margin-bottom: 4px;
 }
+.calendar-post-language {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .calendar-post-top .status-dot {
   margin-left: auto;
   width: 4px;

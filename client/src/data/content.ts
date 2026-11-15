@@ -36,6 +36,7 @@ export type Variant = {
 
 export type ContentTemplate = {
   id: string;
+  language?: 'en' | 'pt';
   title: string;
   headline: string;
   /** Optional visual-editor copy; older templates fall back to brand/caption values. */

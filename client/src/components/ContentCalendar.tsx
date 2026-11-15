@@ -174,6 +174,7 @@ export default function ContentCalendar({
                         <span className="calendar-post-top">
                           <PlatformIcon platform={post.platform} size={12} />
                           <span>{post.time}</span>
+                          {(post.language ?? template.language) && <span className="calendar-post-language">{(post.language ?? template.language)?.toUpperCase()}</span>}
                           <span className={`status-dot ${post.status}`} />
                         </span>
                         <span className="calendar-post-title">
@@ -183,7 +184,7 @@ export default function ContentCalendar({
                           <>
                             <img src={template.image} alt={template.title} />
                             <span className="week-format">
-                              {template.format} · {post.status}
+                              {template.format} · {post.language ?? template.language ?? post.status}
                             </span>
                           </>
                         )}

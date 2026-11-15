@@ -18,6 +18,26 @@ describe('studio-canvas engine', () => {
     expect(FORMAT_DIMENSIONS.landscape).toEqual({ width: 1920, height: 1080, label: 'Landscape (16:9)', ratio: '16 / 9' });
   });
 
+  it('seeds six crawled brand projects with alternating bilingual Instagram plans', () => {
+    expect(studio.projects.map(item => item.id)).toEqual([
+      'hungrypockets',
+      'swiftdisplay',
+      'swiftcal',
+      'goldenmailbox',
+      'lojapilot',
+      'goldencreative',
+    ]);
+    for (const project of studio.projects) {
+      const campaignPosts = project.planner.posts.filter(post => post.id.startsWith(`starter-${project.id}-`));
+      expect(campaignPosts).toHaveLength(8);
+      expect(campaignPosts.map(post => post.language)).toEqual([
+        'pt', 'en', 'pt', 'en', 'pt', 'en', 'pt', 'en',
+      ]);
+      expect(campaignPosts.every(post => post.platform === 'instagram')).toBe(true);
+      expect(campaignPosts.every(post => post.content?.variants.instagram.caption.length)).toBe(true);
+    }
+  });
+
   it('creates a brand-new blank post template grounded in project identity', () => {
     const template = createBlankTemplate(project);
     expect(template.id).toBeDefined();

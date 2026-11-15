@@ -24,14 +24,9 @@
     },
     "pages": [
       {
-        "url": "https://hungrypockets.eu/?lang=en",
+        "url": "https://hungrypockets.eu/",
         "title": "HungryPockets — Always Starving Since 2014 — HungryPockets",
-        "text": "Always Starving Since 2014. The official uniform of the hustle. Shop the drop. The manifesto. Homepage copy says the idea is a chest pocket representing pure hustle and the mindset is Always Starving. It features latest drops and most wanted products, including Five Panel Cap, Dad hat, Women’s crop top, Unisex windbreaker, Brand Oversized faded t-shirt, Oversized faded t-shirt, Cuffed Beanie, and camisa curta homem preta. It links to Men, Women, New Arrivals, Limited Drops, The Manifesto, Hustle Journal, Instagram (https://instagram.com/hungrypockets), TikTok (https://tiktok.com/@hungrypockets), and Pinterest (https://pinterest.com/hungrypockets). Footer positioning: Always starving since 2014. The evolution of the pocket. Crafted for those who never stop. A newsletter invitation says Join the circle. Get early access to drops. Source HTML exposes Oswald from Google Fonts and CSS tokens including --bg:#111111, --panel:#1a1a1a, --text:#f5f5f5, --muted:#a3a3a3, --red:#e63946, --line:#ffffff14, and --accent:#e63946, with a light-theme variant using --bg:#ffffff, --panel:#f2f2f2, --text:#111111, and --muted:#555555."
-      },
-      {
-        "url": "https://hungrypockets.eu/manifesto?lang=en",
-        "title": "The Pocket Manifesto — HungryPockets",
-        "text": "The Pocket Manifesto. Always starving since 2014. Origin: It all started in 2014. Not in a boardroom, but on the concrete. Hungry Pockets wasn't conceived as a brand, but as a statement. The idea was simple: a chest pocket representing the hunger for more. More growth, more success, more life. Mentality: Always Starving isn't about lack; it's about drive. It's the 5 AM gym session. It's the midnight code. It's the skate trick perfected on the 100th fall. Our gear is the official uniform for those who refuse to be full. Evolution: 2026 is the year we stop just having pockets and start being the pocket. Protection, utility, and pure urban armor. Quote: If your pockets are full, you've stopped growing. Stay hungry. Stay Hungry. The page links to Shop the drop and the same official Instagram, TikTok, and Pinterest profiles."
+        "text": "Live homepage crawl (2026-11-15): Always Starving Since 2014. The official uniform of the hustle. The homepage introduces the chest-pocket idea and links to the manifesto and current collections. Product names visible include Five Panel Cap, Dad hat, Women’s crop top, and Unisex windbreaker. Prices and stock status are intentionally excluded from this source summary."
       }
     ],
     "media": [
@@ -107,17 +102,7 @@
       {
         "url": "https://swiftdisplay.pt/",
         "title": "SwiftDisplay · Sinalização digital",
-        "text": "Official homepage. The site says users can create, schedule, and update content for screens in one place. It presents use cases for restaurants, clinics and health, companies, and retail; features including centralized management, editable templates, scheduling, widgets and integrations, multi-screen content, content updates, and cached playback during network outages; device paths including web browser, Android TV, Smart TV, and a computer connected to a screen; and a public café-menu simulator link. The footer tagline is 'Mensagens que chegam mais longe.'"
-      },
-      {
-        "url": "https://swiftdisplay.pt/niche/swiftdisplay-cafes-menus.html",
-        "title": "Digital Signage Simulator - SwiftDisplay",
-        "text": "Official public simulator page showing a café-menu example in Lisbon: weather 24°C, coffee category, Especialidades de Café, Expresso Roast, Cappuccino, Flat White, and Matcha Latte. The page displays example prices and descriptions as part of the simulator, not as verified SwiftDisplay commercial pricing or an active customer offer."
-      },
-      {
-        "url": "https://swiftdisplay.pt/cookies",
-        "title": "Política de Cookies - SwiftDisplay",
-        "text": "Official cookie policy, last updated October 2026. It says SwiftDisplay does not use advertising or third-party tracking cookies and uses technically necessary authentication session storage, localStorage, and service-worker cache; Stripe may set antifraud cookies during checkout."
+        "text": "Live homepage crawl (2026-11-15): Crie, agende e atualize conteúdos de sinalização digital para restaurantes, clínicas, lojas e equipas. Explore planos e casos de uso SwiftDisplay. The homepage tagline is 'Mensagens que chegam mais longe.'"
       }
     ],
     "media": [
@@ -143,8 +128,8 @@
     "id": "swiftcal",
     "name": "SwiftCal",
     "url": "https://swiftcal.pt/",
-    "description": "SwiftCal is a modern calendar and scheduling web application for appointments with individuals and teams. The official homepage presents integrated video, branded booking links, website embeds, automated email workflows, services and Stripe payments, Google Calendar and Microsoft Outlook integrations, team calendars, push notifications, a PWA install path, live demos, and Individual and Teams plans.",
-    "summary": "SwiftCal presents itself as a clean, modern scheduling SaaS with a blue-and-orange visual system. The official homepage is in Portuguese and emphasizes effortless booking, integrated videoconferencing, automated workflows, branded booking pages, external website widgets, payment-enabled services, calendar integrations, team availability, push alerts, PWA installation, live demos, and paid Individual and Teams plans. The privacy page states that the service collects name, email, and scheduling data and uses it to provide, maintain, and improve the service and process bookings.",
+    "description": "SwiftCal brings appointment booking, videoconferencing and contact management together.",
+    "summary": "Live homepage crawl (2026-11-15): SwiftCal's current positioning is 'Menos agendamento. Mais ligação.' The site describes appointment scheduling, integrated videoconferencing, branded booking links, automatic email confirmations and notifications, calendar connections, and a Lite CRM section. Posts avoid plan prices, payment guarantees, and claims not stated on the live homepage.",
     "brand": {
       "name": "SwiftCal",
       "headingFont": "ui-sans-serif, system-ui, sans-serif (CSS utility stack; no named webfont loaded)",
@@ -165,13 +150,8 @@
     "pages": [
       {
         "url": "https://swiftcal.pt/",
-        "title": "SwiftCal - Seamless Scheduling",
-        "text": "Official homepage in Portuguese. Hero: 'Agendamentos de forma perfeita.' It describes effortless bookings, integrated videoconferencing, and automated workflows. Feature sections cover integrated video, branded booking links, website integration, automated confirmations/cancellations/email notifications, services and Stripe payments, Google Calendar, Microsoft Outlook, team calendars, and push notifications. It also documents PWA installation on iOS and Android, shows three SwiftCal app screens, links to booking/profile demos, and lists Individual (€5/month) and Teams (€15/month, 3 users included plus extra-user pricing) plans, with VAT note. The page footer links Privacy and Terms. Verified assets and CSS: https://swiftcal.pt/_next/static/css/57e826a72713dd81.css; https://swiftcal.pt/swiftcal.png; https://swiftcal.pt/swiftcalw.png; https://swiftapps.b-cdn.net/cal-screen-3.jpeg; https://swiftapps.b-cdn.net/cal-screen-1.jpeg; https://swiftapps.b-cdn.net/cal-screen-2.jpeg"
-      },
-      {
-        "url": "https://swiftcal.pt/privacy",
-        "title": "Política de Privacidade",
-        "text": "Official privacy page, updated 06/11/2026. It says SwiftCal collects information supplied directly by users, including name, email, and scheduling data; uses information to provide, maintain, and improve services and process bookings; applies security measures against unauthorized access; and gives users rights to access, correct, or delete their data."
+        "title": "SwiftCal — Menos agendamento. Mais ligação.",
+        "text": "Live homepage crawl (2026-11-15): 'Menos agendamento. Mais ligação.' SwiftCal describes appointment scheduling, videoconferencing integrated with bookings, branded booking links, automatic email confirmations and notifications, Google Calendar and Outlook connections, and a Lite CRM section for contacts, notes and tasks. A separate public privacy page describes processing of name, email and appointment information."
       }
     ],
     "media": [
@@ -235,7 +215,7 @@
       "background": "#FFFFFF",
       "text": "#11243B",
       "logo": "/projects/goldenmailbox/goldenmailbox.png",
-      "uppercase": "Eyebrows, navigation labels, plan labels, and some UI labels use uppercase styling; body copy is sentence case.",
+      "uppercase": false,
       "style": "minimal",
       "tagline": "Your mail, wherever you are",
       "voice": "Clear, reassuring, practical, privacy-conscious, and lightly premium; explain remote mail handling in direct language.",
@@ -247,12 +227,12 @@
       {
         "url": "https://goldenmailbox.pt/",
         "title": "Golden Mail Box — O seu correio, onde quer que esteja",
-        "text": "Official Portuguese homepage. Key source copy: premium virtual mailbox in Loulé, Portugal; physical mail can be viewed, scanned, forwarded, or securely destroyed remotely; the page describes a Loulé hub, digital envelope-photo notifications, opening and scanning to searchable PDFs, global forwarding, certified secure destruction, fiscal/legal registration use, operator partnerships, plans, privacy/GDPR language, and the Gil virtual assistant."
+        "text": "Live homepage crawl (2026-11-15): Golden Mail Box describes a virtual mailbox in Loulé, Portugal. The site presents digital envelope previews and options to request mail opening and scanning, forwarding, or secure destruction. Legal, tax, regulatory-compliance and customer-count claims are omitted from this campaign source."
       },
       {
-        "url": "https://goldenmailbox.pt/en",
-        "title": "Golden Mail Box — Your mail, wherever you are",
-        "text": "Official English alternate page. It confirms the English positioning and the same service narrative: a premium virtual mailbox in Loulé, Portugal for viewing, scanning, forwarding, or securely shredding physical mail from anywhere."
+        "url": "https://goldenmailbox.pt/locations",
+        "title": "Localizações — Golden Mail Box",
+        "text": "Live locations-page crawl (2026-11-15): Golden Mail Box presents a location in Loulé, Algarve, and describes a network for local operators. The page invites visitors to explore locations."
       }
     ],
     "media": [
@@ -277,6 +257,7 @@
       "The site exposes its main visual system in inline CSS rather than linked stylesheets. Exact CSS colors recorded: primary #2463EB, secondary orange #F4A524, navy #08192F, navy2 #102641, pale #F5F8FD, ink #11243B, muted #64748B, line #E2E9F2, white #FFFFFF.",
       "No official Instagram or TikTok profile URL was found in the inspected homepage HTML, so those fields are blank rather than inferred.",
       "The official pages contain Portuguese pricing and operational claims. Templates intentionally avoid prices, promotions, customer counts, availability promises, and any feature not directly stated in the source pages.",
+      "The live terms page is marked as a pre-launch draft and contains legal-operator placeholders; do not make legal, tax-acceptance, or compliance guarantees in posts.",
       "Downloaded assets are exact original bytes from the verified source URLs; no generated or stock imagery was used."
     ]
   },
@@ -284,18 +265,106 @@
     "id": "lojapilot",
     "name": "LojaPilot",
     "url": "https://lojapilot.pt/",
-    "description": "",
-    "summary": "",
+    "description": "Cria, importa e gere a tua loja online com o LojaPilot. WooCommerce, POS e fidelização numa só plataforma.",
+    "summary": "The live homepage presents LojaPilot as a platform to create, import and manage an online store, bringing WooCommerce, POS and customer loyalty together. The site is JavaScript-rendered; the crawl recovered only its page title and meta description, so posts should stay within those verified statements until a human reviews a fuller import.",
     "brand": {
+      "name": "LojaPilot",
+      "headingFont": "Poppins",
+      "bodyFont": "Inter",
+      "primary": "#0F172A",
+      "secondary": "#0F172A",
+      "background": "#FFFFFF",
+      "text": "#0F172A",
+      "logo": "https://lojapilot.pt/apple-touch-icon.png",
       "style": "minimal",
-      "logo": "",
-      "uppercase": false
+      "tagline": "A sua loja, em movimento.",
+      "voice": "Practical, clear and encouraging. Focus on the stated store-management offer; do not imply unverified features or outcomes.",
+      "audience": "People creating or managing an online shop.",
+      "instagram": "",
+      "tiktok": ""
     },
-    "pages": [],
-    "media": [],
+    "pages": [
+      {
+        "url": "https://lojapilot.pt/",
+        "title": "LojaPilot",
+        "text": "Homepage description: Cria, importa e gere a tua loja online com o LojaPilot. WooCommerce, POS e fidelização numa só plataforma."
+      }
+    ],
+    "media": [
+      {
+        "id": "lojapilot-site-icon",
+        "name": "LojaPilot website icon",
+        "url": "https://lojapilot.pt/apple-touch-icon.png",
+        "kind": "image",
+        "sourceUrl": "https://lojapilot.pt/"
+      }
+    ],
     "templates": [],
     "warnings": [
-      "Import the website or customize its brand kit to begin."
+      "Live crawl on 2026-11-15 recovered only the JavaScript-rendered homepage title and meta description; bundled application strings were excluded from source claims.",
+      "Review the live site and re-import before using claims beyond creating, importing, and managing an online shop with WooCommerce, POS, and loyalty."
+    ]
+  },
+  {
+    "id": "goldencreative",
+    "name": "Golden Creative",
+    "url": "https://goldencreative.pt/",
+    "description": "Co-work and creative studio in Loulé, bringing independent professionals together in a shared workspace.",
+    "summary": "Golden Creative presents coworking desks, private offices and a creative studio in Loulé. Its public pages describe a shared professional community and online space booking. Do not invent prices, opening hours, availability, facilities, or member testimonials.",
+    "brand": {
+      "name": "Golden Creative",
+      "headingFont": "Work Sans",
+      "bodyFont": "Roboto",
+      "primary": "#D94F13",
+      "secondary": "#E98C00",
+      "background": "#FAFAFA",
+      "text": "#000000",
+      "logo": "https://goldencreative.pt/wp-content/uploads/logo-colour-golden-creative@4x-394x87.png",
+      "uppercase": false,
+      "style": "editorial",
+      "tagline": "Make room to grow.",
+      "voice": "Warm, collaborative and practical; speak about shared work, creative energy and the Loulé location without promising unverified amenities.",
+      "audience": "Freelancers, remote workers, startups and professionals looking for coworking desks or private offices in Loulé.",
+      "instagram": "https://www.instagram.com/goldencreativept/",
+      "tiktok": ""
+    },
+    "pages": [
+      {
+        "url": "https://goldencreative.pt/",
+        "title": "Home - Golden Creative: Co-Work & Creative Studio Located in Loulé",
+        "text": "Golden Creative is a co-work and creative studio in Loulé. The homepage describes a shared working space for professionals across different fields, individual desks, private offices, a virtual mailbox service, and online workspace booking."
+      },
+      {
+        "url": "https://goldencreative.pt/about-us/",
+        "title": "About Us - Golden Creative: Co-Work & Creative Studio Located in Loulé",
+        "text": "Golden Creative describes a community of professionals in different areas working together under one roof in Loulé. Its offices and community are presented as a place to work, grow and develop a startup."
+      },
+      {
+        "url": "https://goldencreative.pt/contact-us/",
+        "title": "Contact Us - Golden Creative: Co-Work & Creative Studio Located in Loulé",
+        "text": "The contact page invites visitors to leave a message or call the studio. The public homepage identifies the location as Rua Homens do Andor N2-A, 8100-670 Loulé."
+      }
+    ],
+    "media": [
+      {
+        "id": "goldencreative-logo",
+        "name": "Golden Creative official logo",
+        "url": "https://goldencreative.pt/wp-content/uploads/logo-colour-golden-creative@4x-394x87.png",
+        "kind": "image",
+        "sourceUrl": "https://goldencreative.pt/"
+      },
+      {
+        "id": "goldencreative-space",
+        "name": "Golden Creative coworking space",
+        "url": "https://goldencreative.pt/wp-content/uploads/DSC_0005-2.jpg",
+        "kind": "image",
+        "sourceUrl": "https://goldencreative.pt/"
+      }
+    ],
+    "templates": [],
+    "warnings": [
+      "Live crawl completed on 2026-11-15; social copy avoids prices, availability, hours, amenities, and review claims.",
+      "The supplied development domain currently identifies a coworking project; Golden Creative's official domain was used as confirmed."
     ]
   }
 ]

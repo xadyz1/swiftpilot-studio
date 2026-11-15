@@ -9,6 +9,7 @@ export interface PlannedPost {
   id: string;
   templateId: string;
   platform: Platform;
+  language?: "en" | "pt";
   date: string;
   time: string;
   status: Status;
@@ -66,6 +67,7 @@ function validContent(value: unknown): value is ContentTemplate {
   const t = value as ContentTemplate;
   return (
     typeof t.id === "string" &&
+    (t.language === undefined || t.language === "en" || t.language === "pt") &&
     typeof t.title === "string" &&
     typeof t.headline === "string" &&
     typeof t.campaign === "string" &&
@@ -102,6 +104,7 @@ export function loadPlanner(): PlannerState {
             typeof p.id === "string" &&
             typeof p.templateId === "string" &&
             /^\d{4}-\d{2}-\d{2}$/.test(p.date) &&
+            (p.language === undefined || ["en", "pt"].includes(p.language)) &&
             ["instagram", "tiktok"].includes(p.platform) &&
             ["draft", "scheduled", "published"].includes(p.status)
         )
@@ -157,13 +160,14 @@ export function downloadText(
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export function buildCSV(
-  posts: PlannedPost[],
+  posts: Pick<PlannedPost, 'templateId' | 'platform' | 'date' | 'time' | 'status' | 'content' | 'language'>[],
   contents: ContentTemplate[]
 ): string {
   const columns = [
     "Date",
     "Time (your local time)",
     "Platform",
+    "Language",
     "Status",
     "Title",
     "Caption",
@@ -182,6 +186,7 @@ export function buildCSV(
         post.date,
         post.time,
         post.platform,
+        post.language ?? template.language ?? "",
         post.status,
         template.title,
         variant.caption,
@@ -199,7 +204,8 @@ export function buildCSV(
 }
 export function exportCSV(
   posts: PlannedPost[],
-  contents: ContentTemplate[]
+  contents: ContentTemplate[],
+  filename = "hungry-pockets-content-calendar.csv",
 ): void {
-  downloadText(buildCSV(posts, contents), "hungry-pockets-content-calendar.csv", "text/csv;charset=utf-8");
+  downloadText(buildCSV(posts, contents), filename, "text/csv;charset=utf-8");
 }

@@ -64,11 +64,35 @@ export interface PlanConfig {
   time: string; // HH:mm
 }
 
+export function alternateLanguageTemplates(
+  english: ContentTemplate[],
+  portuguese: ContentTemplate[],
+): { templates: ContentTemplate[]; languages: ('en' | 'pt')[] } {
+  const templates: ContentTemplate[] = [];
+  const languages: ('en' | 'pt')[] = [];
+  const count = Math.max(english.length, portuguese.length);
+  for (let index = 0; index < count; index++) {
+    if (english[index]) {
+      templates.push(english[index]);
+      languages.push('en');
+    }
+    if (portuguese[index]) {
+      templates.push(portuguese[index]);
+      languages.push('pt');
+    }
+  }
+  return { templates, languages };
+}
+
 /** Spread planned posts evenly Mon–Sat across weeks, alternating platforms. */
-export function buildCalendarQueue(templates: ContentTemplate[], config: PlanConfig): Omit<PlannedPost, 'id'>[] {
+export function buildCalendarQueue(
+  templates: ContentTemplate[],
+  config: PlanConfig,
+  languages: ('en' | 'pt')[] = [],
+): Omit<PlannedPost, 'id'>[] {
   const days: Omit<PlannedPost, 'id'>[] = [];
   const start = new Date(`${config.startDate}T12:00:00`);
-  if (Number.isNaN(start.getTime())) return days;
+  if (Number.isNaN(start.getTime())) throw new Error('Choose a valid start date.');
   // Weekday slots: Tue, Thu, Sat, Mon, Wed, Fri (keeps a natural rhythm)
   const slotOrder = [2, 4, 6, 1, 3, 5];
   const perWeek = Math.max(1, Math.min(6, config.postsPerWeek));
@@ -81,6 +105,7 @@ export function buildCalendarQueue(templates: ContentTemplate[], config: PlanCon
     days.push({
       templateId: template.id,
       platform: cursor % 3 === 2 ? 'tiktok' : 'instagram',
+      ...(languages[cursor] ? { language: languages[cursor] } : {}),
       date: `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`,
       time: config.time,
       status: 'scheduled',
