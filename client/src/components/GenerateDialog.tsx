@@ -44,6 +44,8 @@ function object(value: unknown): value is Record<string, unknown> {
 function isTemplate(value: unknown): value is ContentTemplate {
   if (!object(value)) return false;
   if (!['id', 'title', 'headline', 'campaign', 'theme', 'image'].every(key => typeof value[key] === 'string')) return false;
+  if (value.language !== undefined && value.language !== 'en' && value.language !== 'pt') return false;
+  if (value.sourceEvidence !== undefined && typeof value.sourceEvidence !== 'string') return false;
   if (!(value.id as string).trim() || !(value.title as string).trim()) return false;
   if (!['Image', 'Carousel', 'Video'].includes(String(value.format))) return false;
   if (!['mint', 'lavender', 'peach', 'yellow'].includes(String(value.tone))) return false;
@@ -77,8 +79,8 @@ function responseMessage(body: unknown, raw: string): string {
 export default function GenerateDialog({ project, onClose, onGenerated }: GenerateDialogProps) {
   const id = useId();
   const [goal, setGoal] = useState('Promote website');
-  const [count, setCount] = useState(4);
-  const [language, setLanguage] = useState<'en' | 'pt'>('en');
+  const [count, setCount] = useState(8);
+  const [language, setLanguage] = useState<'en' | 'pt' | 'alternating'>('alternating');
   const [startDate, setStartDate] = useState(today);
   const [time, setTime] = useState('18:00');
   const [daysBetween, setDaysBetween] = useState(3);
@@ -95,8 +97,8 @@ export default function GenerateDialog({ project, onClose, onGenerated }: Genera
     requestRef.current?.abort('project-change');
     requestRef.current = null;
     setGoal('Promote website');
-    setCount(4);
-    setLanguage('en');
+    setCount(8);
+    setLanguage('alternating');
     setStartDate(today());
     setTime('18:00');
     setDaysBetween(3);
@@ -236,9 +238,9 @@ export default function GenerateDialog({ project, onClose, onGenerated }: Genera
       <DialogContent className="generate-dialog" showCloseButton={false}>
         <div className="generate-dialog-heading">
           <DialogHeader>
-            <span className="eyebrow">FROM YOUR WEBSITE, FOR YOUR BRAND</span>
+            <span className="eyebrow">CRAWLED SOURCES → AI COPY → VISUAL STUDIO</span>
             <DialogTitle>Generate content drafts</DialogTitle>
-            <DialogDescription>Turn verified sources for {project.name} into ideas you can review, edit, and publish yourself.</DialogDescription>
+            <DialogDescription>AI writes source-grounded copy and selects from your website media. The existing Visual Studio is where you shape the artwork before download.</DialogDescription>
           </DialogHeader>
           <button type="button" className="icon-button" aria-label="Close generation dialog" onClick={closeDialog}><X size={20} aria-hidden="true" /></button>
         </div>
@@ -262,9 +264,10 @@ export default function GenerateDialog({ project, onClose, onGenerated }: Genera
             </label>
             <label className="field-label" htmlFor={`${id}-language`}>
               Language
-              <select id={`${id}-language`} value={language} onChange={event => { setLanguage(event.target.value as 'en' | 'pt'); setReady(null); setError(''); }}>
-                <option value="en">English</option>
-                <option value="pt">Português</option>
+              <select id={`${id}-language`} value={language} onChange={event => { setLanguage(event.target.value as 'en' | 'pt' | 'alternating'); setReady(null); setError(''); }}>
+                <option value="alternating">Português + English · alternate</option>
+                <option value="en">English only</option>
+                <option value="pt">Português only</option>
               </select>
             </label>
             <label className="checkbox-field setting-full">
@@ -297,7 +300,7 @@ export default function GenerateDialog({ project, onClose, onGenerated }: Genera
               <h3>{ready.templates.length} drafts ready to review</h3>
               <p className="helper-text">Provider: {ready.provider === 'openai-compatible' ? 'OpenAI-compatible' : 'Manus built-in'} · Model: {ready.model || 'Not reported'}. Nothing has been saved or scheduled yet.</p>
               {ready.warnings.length > 0 && <div className="generation-warnings"><h4>Generation notes</h4><ul>{ready.warnings.map((warning, index) => <li key={`${index}-${warning}`}>{warning}</li>)}</ul></div>}
-              <ol className="generated-draft-list">{ready.templates.map(template => <li key={template.id}><strong>{template.title}</strong><span>{template.format} · {template.platforms.join(' / ')}</span></li>)}</ol>
+              <ol className="generated-draft-list">{ready.templates.map(template => <li key={template.id}><strong>{template.title}</strong><span>{template.language?.toUpperCase() ?? 'EN'} · {template.format} · {template.platforms.join(' / ')}</span></li>)}</ol>
               <p className="helper-text">Accept these drafts below, then review and edit the full copy in your project before publishing.</p>
             </div>
           )}

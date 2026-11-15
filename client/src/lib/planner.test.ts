@@ -96,12 +96,13 @@ describe("calendar dates and storage", () => {
     });
     vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     const t = { ...templates[0], title: "=dangerousFormula" };
-    exportCSV([{ ...seedPlanner().posts[0], content: t }], [templates[0]]);
+    exportCSV([{ ...seedPlanner().posts[0], content: t, language: "pt" }], [templates[0]]);
     expect(clicked).toHaveBeenCalledOnce();
     expect(link.download).toMatch(/calendar\.csv$/);
     const csv = await blob!.text();
     expect(csv).toContain("'=dangerousFormula");
     expect(csv).toContain("hungrypockets.eu");
+    expect(csv).toContain('"instagram","pt"');
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
   });

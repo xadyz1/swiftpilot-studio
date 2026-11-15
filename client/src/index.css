@@ -856,6 +856,10 @@ h1 {
   opacity: 0.8;
   margin-bottom: 4px;
 }
+.calendar-post-language {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
 .calendar-post-top .status-dot {
   margin-left: auto;
   width: 4px;
@@ -1073,11 +1077,16 @@ h1 {
   font-family: "Space Grotesk";
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 30px;
-  line-height: 0.96;
+  font-size: clamp(18px, 2.2vw, 30px);
+  line-height: 1.04;
   letter-spacing: -1px;
-  max-width: 80%;
+  max-width: 90%;
   text-wrap: balance;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
 }
 .art-bottom > span {
   font-size: 6px;
@@ -1122,8 +1131,8 @@ h1 {
   aspect-ratio: 1.6;
 }
 .compact-art .art-bottom strong {
-  font-size: 25px;
-  max-width: 75%;
+  font-size: clamp(16px, 1.9vw, 25px);
+  max-width: 90%;
 }
 .compact-art .art-bottom {
   bottom: 15px;

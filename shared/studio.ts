@@ -59,7 +59,7 @@ export interface GenerateInput {
   pages: SourcePage[];
   media: MediaAsset[];
   count: number;
-  language: 'en' | 'pt';
+  language: 'en' | 'pt' | 'alternating';
   goal: string;
   ai?: { baseUrl: string; model: string; apiKey: string };
 }

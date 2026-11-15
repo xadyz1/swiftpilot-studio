@@ -10,8 +10,8 @@ import { uploadMedia, mediaProxyURL, useMediaSource } from '../lib/media';
 import { FONT_CHOICES, safeFont } from '../lib/brand';
 import { loadAISettings } from '../lib/aiSettings';
 import { buildCSV } from '../lib/planner';
-import { renderStudioCanvas } from '../lib/studio-canvas';
-import { BUSINESS_TYPES, GOALS, NICHE_PILLARS, buildGoalText, buildCalendarQueue, type BusinessType, type Goal, type PostLanguage } from '../lib/onboarding';
+import { renderTemplatePNG } from '../lib/project-export';
+import { BUSINESS_TYPES, GOALS, NICHE_PILLARS, buildGoalText, buildCalendarQueue, alternateLanguageTemplates, type BusinessType, type Goal, type PostLanguage } from '../lib/onboarding';
 
 interface Props {
   open: boolean;
@@ -21,6 +21,71 @@ interface Props {
 
 const STEPS = ['Website', 'Media & logos', 'Brand', 'Business type', 'Goals & plan', 'Review & generate'];
 const blank = { name: '', url: '', extraText: '' };
+
+function object(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isGeneratedTemplate(value: unknown): value is ContentTemplate {
+  if (!object(value)) return false;
+  if (!['id', 'title', 'headline', 'campaign', 'theme', 'image'].every(key => typeof value[key] === 'string')) return false;
+  if (!['Image', 'Carousel', 'Video'].includes(String(value.format)) || !['mint', 'lavender', 'peach', 'yellow'].includes(String(value.tone))) return false;
+  if (!Array.isArray(value.platforms) || !value.platforms.length || !value.platforms.every(platform => platform === 'instagram' || platform === 'tiktok')) return false;
+  if (!object(value.variants)) return false;
+  const variants = value.variants;
+  return ['instagram', 'tiktok'].every(platform => {
+    const variant = variants[platform];
+    return object(variant) && ['caption', 'hashtags', 'cta', 'notes'].every(key => typeof variant[key] === 'string');
+  });
+}
+
+function generatedTemplates(value: unknown, expected: number): ContentTemplate[] {
+  if (!object(value) || !Array.isArray(value.templates) || value.templates.length !== expected || !value.templates.every(isGeneratedTemplate)) {
+    throw new Error('The AI returned incomplete or invalid drafts. No project or schedule was saved.');
+  }
+  const templates = value.templates;
+  if (new Set(templates.map(template => template.id)).size !== templates.length) {
+    throw new Error('The AI returned duplicate draft IDs. No project or schedule was saved.');
+  }
+  return templates;
+}
+
+async function requestTemplates(
+  project: SiteProject,
+  sources: SiteProject['sources'],
+  goal: string,
+  count: number,
+  language: 'en' | 'pt',
+): Promise<ContentTemplate[]> {
+  const response = await fetch('/api/studio/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ai: loadAISettings(),
+      project: {
+        name: project.name,
+        url: project.url,
+        description: project.description,
+        brand: {
+          tagline: project.brand.tagline,
+          voice: project.brand.voice,
+          audience: project.brand.audience,
+        },
+      },
+      pages: sources,
+      media: project.media,
+      count,
+      language,
+      goal,
+    }),
+  });
+  const body: unknown = await response.json().catch(() => null);
+  if (!response.ok) {
+    const message = object(body) && typeof body.error === 'string' ? body.error : `Generation failed (HTTP ${response.status}).`;
+    throw new Error(message);
+  }
+  return generatedTemplates(body, count);
+}
 
 function LogoThumb({ source }: { source: string }) {
   const resolved = useMediaSource(source);
@@ -95,35 +160,43 @@ export default function OnboardingWizard({ open, onClose, onCreated }: Props) {
       project = { ...project, sources, media: [...project.media, ...media] };
       project.brand = { ...project.brand, name: site.name.trim() || project.brand.name, headingFont: safeFont(brand.headingFont || project.brand.headingFont), bodyFont: safeFont(brand.bodyFont || project.brand.bodyFont), primary: brand.primary, secondary: brand.secondary, instagram: brand.instagram, tiktok: brand.tiktok, linkedin: brand.linkedin, logo: logos.dark ?? logos.light ?? logos.compact ?? project.brand.logo };
 
-      const lang = language === 'both' ? 'en' : language;
       const goal = buildGoalText(business, goals, `Onboarding plan for ${project.name}.`);
       const count = Math.min(12, Math.max(4, weeks * postsPerWeek));
-      const res = await fetch('/api/studio/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ai: loadAISettings(), project: { name: project.name, url: project.url, description: project.description, brand: { tagline: project.brand.tagline, voice: project.brand.voice, audience: project.brand.audience } }, pages: sources, media: project.media, count, language: lang, goal }) });
-      const body = await res.json().catch(() => null);
-      if (!res.ok) throw new Error(body?.error ?? `Generation failed (HTTP ${res.status})`);
-      const templates = body.templates as ContentTemplate[];
+      let templates: ContentTemplate[];
+      let scheduleLanguages: ('en' | 'pt')[] = [];
       if (language === 'both') {
-        const res2 = await fetch('/api/studio/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ai: loadAISettings(), project: { name: project.name, url: project.url, description: project.description, brand: { tagline: project.brand.tagline, voice: project.brand.voice, audience: project.brand.audience } }, pages: sources, media: project.media, count: Math.min(12, Math.ceil(count / 2)), language: 'pt', goal }) });
-        if (res2.ok) { const b2 = await res2.json(); templates.push(...(b2.templates as ContentTemplate[])); }
+        const english = await requestTemplates(project, sources, goal, Math.ceil(count / 2), 'en');
+        const portuguese = await requestTemplates(project, sources, goal, Math.floor(count / 2), 'pt');
+        const alternating = alternateLanguageTemplates(english, portuguese);
+        templates = alternating.templates;
+        scheduleLanguages = alternating.languages;
+      } else {
+        templates = await requestTemplates(project, sources, goal, count, language);
+        scheduleLanguages = Array.from({ length: templates.length }, () => language);
       }
-      const planned = buildCalendarQueue(templates, { weeks, postsPerWeek, startDate, time: postTime });
+      const planned = buildCalendarQueue(templates, { weeks, postsPerWeek, startDate, time: postTime }, scheduleLanguages);
       project = { ...project, templates: [...project.templates, ...templates], planner: { ...project.planner, posts: [...project.planner.posts, ...planned.map(p => ({ ...p, id: crypto.randomUUID() }))] } };
 
-      // ZIP: schedule CSV + summary + a PNG per queued template (first 12)
       setBusy('zip');
       const zip = new JSZip();
-      zip.file('calendar-schedule.csv', buildCSV(planned as never, templates));
-      zip.file('plan-summary.txt', `${project.name} — ${planned.length} queued posts, ${weeks} weeks @ ${postsPerWeek}/wk, ${business}, goals: ${goals.join(', ')}, lang: ${language}`);
-      const used = new Set(planned.map(p => p.templateId));
-      for (const t of templates.filter(t => used.has(t.id)).slice(0, 12)) {
-        try {
-          const canvas = document.createElement('canvas');
-          await renderStudioCanvas(canvas, t, { brand: project.brand, website: project.url, format: t.aspectRatio ?? 'square', layout: t.layout, scale: 1 });
-          const blob = await new Promise<Blob | null>(r => canvas.toBlob(r, 'image/png'));
-          if (blob) zip.file(`posts/${t.title.replace(/[^\w\d]+/g, '-').slice(0, 40)}.png`, blob);
-        } catch { /* skip render failures */ }
+      zip.file('calendar-schedule.csv', buildCSV(planned, templates));
+      zip.file('plan-summary.txt', `${project.name} — ${planned.length} queued posts, ${weeks} weeks @ ${postsPerWeek}/wk, ${business}, goals: ${goals.join(', ')}, lang: ${language}\nVertical 9:16 artwork is suitable for Instagram Stories and Reels. Review all drafts before publishing.`);
+      for (const [index, post] of planned.entries()) {
+        const template = templates.find(item => item.id === post.templateId);
+        if (!template) throw new Error('A scheduled draft could not be found while building the download pack.');
+        const postLanguage = post.language ?? template.language ?? language;
+        const base = `${post.date}-${String(index + 1).padStart(2, '0')}-${postLanguage}-${template.id}`;
+        const variant = template.variants.instagram;
+        zip.file(`copy/${base}.txt`, `${template.title} (${postLanguage.toUpperCase()})\n${post.date} ${post.time}\n\n${variant.caption}\n\n${variant.hashtags}\n\n${variant.cta}\n\n${variant.notes}`);
+        const slides = Math.max(1, template.slides?.length ?? 0);
+        for (const [format, folder] of [['square', 'feed-1x1'], ['vertical', 'stories-9x16']] as const) {
+          const dimensions = format === 'square' ? '1080x1080' : '1080x1920';
+          for (let slide = 0; slide < slides; slide++) {
+            const suffix = slides > 1 ? `-slide-${String(slide + 1).padStart(2, '0')}` : '';
+            const image = await renderTemplatePNG(template, project, format, slide);
+            zip.file(`${folder}/${base}${suffix}-${dimensions}.png`, image);
+          }
+        }
       }
       const out = await zip.generateAsync({ type: 'blob' });
       const a = document.createElement('a');

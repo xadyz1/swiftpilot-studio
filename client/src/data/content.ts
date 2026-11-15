@@ -36,6 +36,7 @@ export type Variant = {
 
 export type ContentTemplate = {
   id: string;
+  language?: 'en' | 'pt';
   title: string;
   headline: string;
   /** Optional visual-editor copy; older templates fall back to brand/caption values. */
@@ -50,6 +51,7 @@ export type ContentTemplate = {
   tone: Tone;
   variants: Record<Platform, Variant>;
   sourceUrl?: string;
+  sourceEvidence?: string;
   mediaKind?: 'image' | 'video';
   layout?: VisualLayout;
   aspectRatio?: AspectRatioFormat;
@@ -64,6 +66,12 @@ export type ContentTemplate = {
   contentPadding?: ContentDensity;
   headingFont?: string;
   bodyFont?: string;
+  colorOverrides?: {
+    primary?: string;
+    secondary?: string;
+    background?: string;
+    text?: string;
+  };
   slides?: CarouselSlide[];
 };
 
